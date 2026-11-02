@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LLM Debate Arena</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <header class="header">
+      <div class="header-left">
+        <div class="logo">⚡ LLM Debate Arena</div>
+        <div id="cdp-status" class="status-pill status-offline">● Chrome CDP Offline</div>
+      </div>
+      <div class="header-right">
+        <button id="refresh-cdp-btn" class="btn btn-secondary">Refresh CDP</button>
+      </div>
+    </header>
+
+    <section class="control-panel">
+      <div class="form-group">
+        <label for="topic-input">Debate Topic</label>
+        <textarea id="topic-input" rows="2" placeholder="e.g. Should startups choose PostgreSQL or MongoDB for their primary datastore?"></textarea>
+      </div>
+
+      <div class="panel-options">
+        <div class="model-selection">
+          <label>Participating Models:</label>
+          <div class="chips">
+            <label class="chip chip-claude"><input type="checkbox" value="claude" checked> Claude</label>
+            <label class="chip chip-chatgpt"><input type="checkbox" value="chatgpt" checked> ChatGPT</label>
+            <label class="chip chip-gemini"><input type="checkbox" value="gemini" checked> Gemini</label>
+            <label class="chip chip-deepseek"><input type="checkbox" value="deepseek" checked> DeepSeek</label>
+          </div>
+        </div>
+
+        <div class="judge-selection">
+          <label for="judge-select">Stage 3 Judge:</label>
+          <select id="judge-select">
+            <option value="claude">Claude</option>
+            <option value="chatgpt">ChatGPT</option>
+            <option value="gemini">Gemini</option>
+            <option value="deepseek">DeepSeek</option>
+          </select>
+        </div>
+
+        <button id="start-debate-btn" class="btn btn-primary">Start Debate</button>
+      </div>
+    </section>
+
+    <!-- Stage Progress Stepper -->
+    <section class="stepper-section">
+      <div class="stepper">
+        <div id="step-1" class="step">
+          <div class="step-num">1</div>
+          <div class="step-label">Initial Arguments</div>
+        </div>
+        <div class="step-line"></div>
+        <div id="step-2" class="step">
+          <div class="step-num">2</div>
+          <div class="step-label">Cross-Critique</div>
+        </div>
+        <div class="step-line"></div>
+        <div id="step-3" class="step">
+          <div class="step-num">3</div>
+          <div class="step-label">Judge Synthesis</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4-Model Side-by-side Grid -->
+    <main class="models-grid">
+      <div class="model-card card-claude" id="card-claude">
+        <div class="card-header">
+          <span class="model-name">🟠 Claude</span>
+          <span class="card-status" id="status-claude">Idle</span>
+        </div>
+        <div class="card-body" id="content-claude">Waiting for debate to begin...</div>
+      </div>
+
+      <div class="model-card card-chatgpt" id="card-chatgpt">
+        <div class="card-header">
+          <span class="model-name">🟢 ChatGPT</span>
+          <span class="card-status" id="status-chatgpt">Idle</span>
+        </div>
+        <div class="card-body" id="content-chatgpt">Waiting for debate to begin...</div>
+      </div>
+
+      <div class="model-card card-gemini" id="card-gemini">
+        <div class="card-header">
+          <span class="model-name">🔵 Gemini</span>
+          <span class="card-status" id="status-gemini">Idle</span>
+        </div>
+        <div class="card-body" id="content-gemini">Waiting for debate to begin...</div>
+      </div>
+
+      <div class="model-card card-deepseek" id="card-deepseek">
+        <div class="card-header">
+          <span class="model-name">🟣 DeepSeek</span>
+          <span class="card-status" id="status-deepseek">Idle</span>
+        </div>
+        <div class="card-body" id="content-deepseek">Waiting for debate to begin...</div>
+      </div>
+    </main>
+
+    <!-- Final Synthesis Hero Section -->
+    <section class="synthesis-section" id="synthesis-section" style="display: none;">
+      <div class="synthesis-card">
+        <div class="synthesis-header">
+          <h2>🏆 Final Synthesized Consensus</h2>
+          <button id="copy-report-btn" class="btn btn-secondary">Copy Report</button>
+        </div>
+        <div class="synthesis-body" id="synthesis-content"></div>
+      </div>
+    </section>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

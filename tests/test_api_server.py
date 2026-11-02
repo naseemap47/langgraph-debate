@@ -16,3 +16,11 @@ async def test_start_debate_validation():
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
         response = await ac.post("/api/debate/start", json={"topic": "", "models": []})
     assert response.status_code == 422
+
+@pytest.mark.asyncio
+async def test_static_index_serves():
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
+        response = await ac.get("/")
+    assert response.status_code == 200
+    assert "LLM Debate Arena" in response.text
+
