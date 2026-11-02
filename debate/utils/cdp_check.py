@@ -2,7 +2,7 @@ import json
 import urllib.request
 from typing import Dict, Any
 
-def check_cdp_status(endpoint: str = "http://localhost:9222") -> Dict[str, Any]:
+def check_cdp_status(endpoint: str = "http://127.0.0.1:9222") -> Dict[str, Any]:
     json_url = f"{endpoint.rstrip('/')}/json/list"
     result: Dict[str, Any] = {
         "connected": False,

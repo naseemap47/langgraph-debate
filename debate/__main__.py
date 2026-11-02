@@ -71,14 +71,14 @@ def main():
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     check_p = subparsers.add_parser("check-cdp", help="Check Chrome CDP connection and tabs")
-    check_p.add_argument("--endpoint", default="http://localhost:9222", help="CDP endpoint")
+    check_p.add_argument("--endpoint", default="http://127.0.0.1:9222", help="CDP endpoint")
     check_p.set_defaults(func=run_check_cdp)
 
     run_p = subparsers.add_parser("run", help="Run a multi-model debate")
     run_p.add_argument("topic", help="Topic to debate")
     run_p.add_argument("--models", default="claude,chatgpt,gemini,deepseek", help="Comma-separated models")
     run_p.add_argument("--judge", default="claude", help="Model to synthesize final consensus")
-    run_p.add_argument("--endpoint", default="http://localhost:9222", help="CDP endpoint")
+    run_p.add_argument("--endpoint", default="http://127.0.0.1:9222", help="CDP endpoint")
     run_p.add_argument("--export", action="store_true", help="Export report to markdown")
     run_p.set_defaults(func=run_debate_cli)
 
